@@ -11,7 +11,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signIn.pending, (state) => {
+          .addCase(signIn.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
@@ -34,7 +34,19 @@ const authSlice = createSlice({
       .addCase(signInWithGitHub.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
+      .addCase(signUp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;}
+      );
   },
 });
 

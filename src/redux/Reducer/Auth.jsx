@@ -10,14 +10,11 @@ export const signIn = createAsyncThunk(
   }
 );
   
-  export const signUp = createAsyncThunk(
-    'auth/signUp',
-    async ({ email, password }, { rejectWithValue }) => {
-      const { user, error } = await supabase.auth.signUp({ email, password });
-      if (error) return rejectWithValue(error.message);
-      return user;
-    }
-  );
+export const signUp = createAsyncThunk('auth/signUp', async ({ email, password }) => {
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) throw error;
+  return data.user;
+});
   
   export const signOut = createAsyncThunk('auth/signOut', async () => {
     await supabase.auth.signOut();
